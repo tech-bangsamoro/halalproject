@@ -306,14 +306,14 @@ function initROICalculator() {
                 irr = '18%';
                 break;
             case '2':
-                roi = investment * 0.15 * 7; // 15% annual return for 7 years
+                roi = investment * 0.21 * 7; // 21% annual return for 7 years
                 payback = '3-4 years';
-                irr = '15%';
+                irr = '21%';
                 break;
             case '3':
-                roi = investment * 0.12 * 10; // 12% annual return for 10 years
+                roi = investment * 0.25 * 10; // 25% annual return for 10 years
                 payback = '2-3 years';
-                irr = '12%';
+                irr = '25%';
                 break;
         }
 
