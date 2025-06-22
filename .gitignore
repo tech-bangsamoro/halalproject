@@ -1,0 +1,22 @@
+# Ignore specified directories and files
+infographic-pages/
+CLAUDE.md
+static/
+docs/
+.claude/
+
+# Common ignore patterns
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+node_modules/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

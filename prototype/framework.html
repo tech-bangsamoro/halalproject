@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Framework - Mindanao Halal Project</title>
+    <meta name="description" content="Comprehensive framework for Mindanao halal industry development. Strategic pillars, implementation approach, and governance structure.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .framework-visual {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 3rem;
+        }
+        
+        .framework-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .framework-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .framework-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .framework-component {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .framework-component:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .framework-component.active {
+            border: 2px solid var(--primary-blue);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .framework-component::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .framework-component:hover::before,
+        .framework-component.active::before {
+            transform: scaleX(1);
+        }
+        
+        .component-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .component-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .component-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+        
+        .component-details {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .framework-component.expanded .component-details {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1.5rem;
+        }
+        
+        .component-details h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .component-details .details-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+        }
+        
+        /* Accordion Styles */
+        .accordion-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .accordion-item {
+            margin-bottom: 1rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .accordion-item.active {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Color coding for different sections */
+        .outcomes-accordion .accordion-item:nth-child(1) {
+            border-left: 4px solid #1976d2;
+        }
+        
+        .outcomes-accordion .accordion-item:nth-child(2) {
+            border-left: 4px solid #4caf50;
+        }
+        
+        .outcomes-accordion .accordion-item:nth-child(3) {
+            border-left: 4px solid #ff9800;
+        }
+        
+        .outcomes-accordion .accordion-item:nth-child(4) {
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            position: relative;
+            background: white;
+            transition: background-color 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background-color: #f8fafc;
+        }
+        
+        .accordion-item.active .accordion-header {
+            background-color: #f8fafc;
+        }
+        
+        .accordion-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+        
+        .accordion-header-content {
+            flex: 1;
+        }
+        
+        .accordion-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .accordion-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+        
+        .accordion-chevron {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-item.active .accordion-chevron {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
+        }
+        
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+        
+        .accordion-details {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .accordion-details h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .accordion-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .accordion-details li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        
+        .accordion-details li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+        
+        /* Section backgrounds */
+        .outcomes-section {
+            background: #f8fafc;
+            padding: 3rem 0;
+        }
+        
+        .pillars-section {
+            padding: 3rem 0;
+        }
+        
+        .foundations-section {
+            background: #f8fafc;
+            padding: 3rem 0;
+        }
+        
+        /* Horizontal Timeline Styles */
+        .implementation-timeline {
+            position: relative;
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline-track {
+            position: absolute;
+            top: 50px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-green) 50%, #ff9800 100%);
+            border-radius: 2px;
+        }
+        
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+        }
+        
+        .timeline-item {
+            flex: 1;
+            position: relative;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .timeline-point {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-item:nth-child(2) .timeline-point {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.1);
+        }
+        
+        .timeline-item:nth-child(3) .timeline-point {
+            border-color: #ff9800;
+            color: #ff9800;
+            box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.1);
+        }
+        
+        .timeline-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:nth-child(2) .timeline-card {
+            border-top-color: var(--primary-green);
+        }
+        
+        .timeline-item:nth-child(3) .timeline-card {
+            border-top-color: #ff9800;
+        }
+        
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .timeline-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-card ul {
+            list-style: none;
+            padding-left: 0;
+            text-align: left;
+        }
+        
+        .timeline-card li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        
+        .timeline-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+        
+        .foundation-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .foundation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .foundation-card.expanded {
+            transform: translateY(-5px);
+        }
+        
+        .foundation-details {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .foundation-card.expanded .foundation-details {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1.5rem;
+        }
+        
+        .foundation-details h4 {
+            color: white;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .foundation-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .foundation-details li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .foundation-details li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: white;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .accordion-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .timeline-items {
+                flex-direction: column;
+            }
+            
+            .timeline-track {
+                top: 0;
+                left: 50px;
+                right: auto;
+                width: 4px;
+                height: calc(100% - 100px);
+                background: linear-gradient(180deg, var(--primary-blue) 0%, var(--primary-green) 50%, #ff9800 100%);
+            }
+            
+            .timeline-item {
+                display: flex;
+                align-items: flex-start;
+                text-align: left;
+                margin-bottom: 2rem;
+            }
+            
+            .timeline-point {
+                margin: 0 1.5rem 0 0;
+                flex-shrink: 0;
+            }
+            
+            .timeline-card {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-mosque"></i>
+                Mindanao Halal Project
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="business-case.html" class="nav-link">Business Case</a></li>
+                <li><a href="framework.html" class="nav-link active">Framework</a></li>
+                <li><a href="investment.html" class="nav-link">Investment</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section" style="padding-top: 8rem; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+        <div class="container">
+            <div class="section-title">
+                <h1>Halal Industry Development Framework</h1>
+                <p>A comprehensive approach to building Mindanao's halal ecosystem</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Framework Overview -->
+    <section class="section">
+        <div class="container">
+            <div class="framework-visual animate">
+                <img src="assets/images/framework.png" alt="Mindanao Halal Industry Development Framework" class="framework-image">
+                <p class="text-center mt-2" style="color: var(--text-gray);">Click on components below to explore each element in detail</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Outcomes -->
+    <section class="outcomes-section">
+        <div class="container">
+            <div class="section-title animate">
+                <h2>Four Strategic Outcomes</h2>
+                <p>The vision for Mindanao's halal industry leadership</p>
+            </div>
+            
+            <div class="accordion-container outcomes-accordion">
+                <!-- Outcome 1 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Significant Global Player</h3>
+                            <p class="accordion-description">Establish Mindanao in the global halal market through strategic positioning, quality products, and international partnerships.</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Key Strategies</h4>
+                            <ul>
+                                <li>Position as Southeast Asia's halal processing hub</li>
+                                <li>Achieve international quality certifications</li>
+                                <li>Build strategic partnerships with OIC countries</li>
+                                <li>Develop export-ready infrastructure</li>
+                                <li>Create globally recognized halal brands</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Outcome 2 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Inclusive Economic Opportunities</h3>
+                            <p class="accordion-description">Create broad-based economic benefits for all communities, ensuring equitable growth and development across Mindanao.</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Key Strategies</h4>
+                            <ul>
+                                <li>Generate 120,000+ jobs across value chain</li>
+                                <li>Prioritize local community employment</li>
+                                <li>Support women's economic participation</li>
+                                <li>Develop SME supplier networks</li>
+                                <li>Ensure equitable benefit distribution</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Outcome 3 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Sustainable Development</h3>
+                            <p class="accordion-description">Align growth with long-term sustainability goals, protecting natural resources while building economic prosperity.</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Key Strategies</h4>
+                            <ul>
+                                <li>Implement circular economy practices</li>
+                                <li>Promote sustainable farming methods</li>
+                                <li>Reduce carbon footprint through local sourcing</li>
+                                <li>Establish water conservation systems</li>
+                                <li>Create waste-to-energy programs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Outcome 4 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Cultural Alignment</h3>
+                            <p class="accordion-description">Integrate development with cultural values, respecting and promoting the diverse heritage of Mindanao.</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Key Strategies</h4>
+                            <ul>
+                                <li>Respect Islamic principles and values</li>
+                                <li>Preserve traditional knowledge and practices</li>
+                                <li>Foster interfaith cooperation</li>
+                                <li>Promote cultural tourism alongside halal industry</li>
+                                <li>Build social cohesion through shared prosperity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Pillars -->
+    <section class="pillars-section">
+        <div class="container">
+            <div class="section-title animate">
+                <h2>Strategic Pillars</h2>
+                <p>Click on each pillar to explore detailed implementation strategies</p>
+            </div>
+            
+            <div class="accordion-container pillars-accordion">
+                <!-- Pillar 1 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Human Resource Development</h3>
+                            <p class="accordion-description">Building skills and knowledge for halal industry excellence</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>Specialized halal certification training programs</li>
+                                <li>Technical skills development for processing and production</li>
+                                <li>Management and leadership programs</li>
+                                <li>International exchange and scholarship opportunities</li>
+                                <li>Partnership with universities for halal studies programs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pillar 2 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Technology for Halal Development</h3>
+                            <p class="accordion-description">Leveraging innovation for competitive advantage</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>Blockchain for supply chain traceability</li>
+                                <li>IoT sensors for quality monitoring</li>
+                                <li>E-commerce platforms for market access</li>
+                                <li>Digital halal certification systems</li>
+                                <li>AI-powered quality control and inspection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pillar 3 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">CSO Participation</h3>
+                            <p class="accordion-description">Engaging civil society organizations as partners</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>Community consultation and engagement programs</li>
+                                <li>Partnership with religious organizations</li>
+                                <li>Consumer advocacy and education</li>
+                                <li>Social impact monitoring and reporting</li>
+                                <li>Grassroots market development initiatives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pillar 4 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Halal Research & Development</h3>
+                            <p class="accordion-description">Fostering innovation and continuous improvement</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>Product development laboratories</li>
+                                <li>Halal food science research</li>
+                                <li>Market research and consumer insights</li>
+                                <li>Quality improvement initiatives</li>
+                                <li>Collaboration with international research institutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pillar 5 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Halal Enterprise Development</h3>
+                            <p class="accordion-description">Building a robust ecosystem of halal businesses</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>SME development programs</li>
+                                <li>Incubation and acceleration support</li>
+                                <li>Access to finance facilitation</li>
+                                <li>Business matching and networking</li>
+                                <li>Export readiness programs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pillar 6 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Halal/Islamic Financing</h3>
+                            <p class="accordion-description">Shariah-compliant financial mechanisms</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>Islamic banking partnerships</li>
+                                <li>Sukuk issuance for infrastructure</li>
+                                <li>Shariah-compliant investment funds</li>
+                                <li>Microfinance for small producers</li>
+                                <li>Trade finance facilities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pillar 7 -->
+                <div class="accordion-item animate">
+                    <div class="accordion-header">
+                        <div class="accordion-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Logistics & Market Development</h3>
+                            <p class="accordion-description">Efficient supply chains and market access</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Details</h4>
+                            <ul>
+                                <li>Cold chain infrastructure development</li>
+                                <li>Halal logistics certification</li>
+                                <li>Export facilitation services</li>
+                                <li>Market intelligence systems</li>
+                                <li>International trade promotion</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Foundations -->
+    <section class="foundations-section">
+        <div class="container">
+            <div class="section-title animate">
+                <h2>Strategic Foundations</h2>
+                <p>Essential building blocks for sustainable halal industry development</p>
+            </div>
+            
+            <div class="accordion-container foundations-accordion">
+                <!-- Foundation 1 -->
+                <div class="accordion-item animate" style="border-left: 4px solid #1976d2;">
+                    <div class="accordion-header">
+                        <div class="accordion-icon" style="background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);">
+                            <i class="fas fa-balance-scale" style="color: white;"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Legal, Regulatory & Governance Framework</h3>
+                            <p class="accordion-description">Establishing comprehensive rules and institutional structures that ensure compliance, transparency, and effective governance across the halal value chain.</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Implementation Framework</h4>
+                            <ul>
+                                <li>Full implementation of Republic Act 10817</li>
+                                <li>Establishment of Halal Certification Bodies</li>
+                                <li>Development of quality assurance protocols</li>
+                                <li>Alignment with international halal standards</li>
+                                <li>Creation of one-stop investment facilitation</li>
+                                <li>Regular compliance audits and monitoring</li>
+                                <li>Capacity building for regulatory personnel</li>
+                                <li>Stakeholder engagement mechanisms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Foundation 2 -->
+                <div class="accordion-item animate" style="border-left: 4px solid #4caf50;">
+                    <div class="accordion-header">
+                        <div class="accordion-icon" style="background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);">
+                            <i class="fas fa-book" style="color: white;"></i>
+                        </div>
+                        <div class="accordion-header-content">
+                            <h3 class="accordion-title">Halal Principles</h3>
+                            <p class="accordion-description">Alignment with Islamic requirements and values, ensuring authenticity and building trust with global Muslim consumers.</p>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-chevron"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-details">
+                            <h4>Core Implementation</h4>
+                            <ul>
+                                <li>Shariah compliance verification systems</li>
+                                <li>Ethical production and processing standards</li>
+                                <li>Complete supply chain transparency</li>
+                                <li>Blockchain-based traceability systems</li>
+                                <li>Community trust building initiatives</li>
+                                <li>Regular Shariah advisory consultations</li>
+                                <li>Consumer education programs</li>
+                                <li>International halal integrity partnerships</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Timeline -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title animate">
+                <h2>Implementation Roadmap</h2>
+                <p>Structured approach to framework deployment</p>
+            </div>
+            
+            <div class="implementation-timeline">
+                <div class="timeline-track"></div>
+                <div class="timeline-items">
+                    <div class="timeline-item animate">
+                        <div class="timeline-point">1</div>
+                        <div class="timeline-card">
+                            <h3>Phase 1: Foundation</h3>
+                            <p style="color: #ff9800; font-weight: 600; margin-bottom: 0.5rem;">Years 1-3</p>
+                            <p><strong>Investment:</strong> ₱500M - ₱1B</p>
+                            <ul>
+                                <li>Halal Livestock Production focus</li>
+                                <li>2-3 integrated processing facilities</li>
+                                <li>Halal certification facility</li>
+                                <li>Expected IRR: 18% annually</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item animate">
+                        <div class="timeline-point">2</div>
+                        <div class="timeline-card">
+                            <h3>Phase 2: Scaling</h3>
+                            <p style="color: #ff9800; font-weight: 600; margin-bottom: 0.5rem;">Years 3-5</p>
+                            <p><strong>Investment:</strong> Up to ₱3-5B</p>
+                            <ul>
+                                <li>5-10 additional facilities</li>
+                                <li>Integrated halal industrial park in Davao City</li>
+                                <li>Expanded distribution network</li>
+                                <li>25% domestic market share target</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item animate">
+                        <div class="timeline-point">3</div>
+                        <div class="timeline-card">
+                            <h3>Phase 3: Leadership</h3>
+                            <p style="color: #ff9800; font-weight: 600; margin-bottom: 0.5rem;">Years 5-10</p>
+                            <p><strong>Investment:</strong> Up to ₱10-20B</p>
+                            <ul>
+                                <li>Regional processing hub</li>
+                                <li>High-value product segments</li>
+                                <li>R&D and innovation centers</li>
+                                <li>Southeast Asian market leader</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section" style="background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%); color: white;">
+        <div class="container text-center">
+            <h2 class="mb-2">Ready to Be Part of This Framework?</h2>
+            <p class="mb-3" style="color: rgba(255,255,255,0.9); font-size: 1.25rem;">
+                Join us in implementing this comprehensive framework for halal industry development
+            </p>
+            
+            <div class="mt-3">
+                <a href="investment.html" class="btn" style="background: white; color: var(--primary-blue);">
+                    Explore Investment Opportunities <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About</h4>
+                <p>Strategic investment framework for Mindanao's halal industry development, prepared by the Halal Research and Development Initiative & Kagan Economic Development Corporation.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="business-case.html">Business Case</a>
+                <a href="framework.html">Framework</a>
+                <a href="investment.html">Investment Opportunities</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Investment Inquiries</h4>
+                <p>Halal Research and Development Initiative</p>
+                <p>Email: halal.initiatives@gmail.com</p>
+                <p>Kagan Economic Development Corporation</p>
+                <p>Email: Available soon</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="#">Download Investment Brief</a>
+                <a href="#">Halal Certification Guide</a>
+                <a href="#">Market Research Reports</a>
+                <a href="#">Contact Investment Team</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mindanao Halal Project - Investment Opportunity. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Initialize accordion interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to handle accordion behavior
+            function initAccordion(containerClass) {
+                const container = document.querySelector(`.${containerClass}`);
+                if (!container) return;
+                
+                const items = container.querySelectorAll('.accordion-item');
+                const headers = container.querySelectorAll('.accordion-header');
+                
+                headers.forEach((header, index) => {
+                    header.addEventListener('click', () => {
+                        const currentItem = items[index];
+                        const isActive = currentItem.classList.contains('active');
+                        
+                        // Close all items in this accordion
+                        items.forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        
+                        // Toggle current item
+                        if (!isActive) {
+                            currentItem.classList.add('active');
+                        }
+                    });
+                });
+            }
+            
+            // Initialize all accordions
+            initAccordion('outcomes-accordion');
+            initAccordion('pillars-accordion');
+            initAccordion('foundations-accordion');
+        });
+    </script>
+</body>
+</html>
